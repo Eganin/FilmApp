@@ -18,7 +18,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
-    private static final int defaultPathImage = R.drawable.re;
+    private static final int defaultPathImage = R.drawable.ic_launcher_foreground;
     private Context context;
     private ArrayList<Movies> movies;
 
@@ -92,11 +92,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             loadImagePicasso(posterUrlPath,holder);
         }
 
-
-
     }
-
-
 
     @Override
     public int getItemCount() {

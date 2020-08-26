@@ -25,9 +25,7 @@
             android:layout_marginLeft="10dp"
             android:layout_weight="5"
             android:hint="Введите название фильма"
-            android:textColor="@android:color/white">
-
-        </EditText>
+            android:textColor="@android:color/black"/>
 
         <Button
             android:id="@+id/searchButton"

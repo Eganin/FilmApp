@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -24,20 +25,30 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class RecyclerViewActivity extends AppCompatActivity {
-
+    private static final String keySearch = "nameSearch";
     private static final String notFindImageMovie = "N/A";
     private RecyclerView recyclerView;
     private MovieAdapter movieAdapter;
     private ArrayList<Movies> movies;
     private RequestQueue requestQueue;// объект для работы с JSON
+    private String urlUsers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recycler_view);
-
+        String dataName = receivingDataIntentString(keySearch);
+        setTitle(dataName);
         searchingFields();
 
+    }
+
+    public String receivingDataIntentString(String keySend) {
+        Intent receivedOrderIntent = getIntent();
+        // получение отправленных данных
+        String data = receivedOrderIntent.getStringExtra(keySend);
+        urlUsers = String.format("http://www.omdbapi.com/?apikey=87d17a18&s=%s", data);
+        return data;
     }
 
     private void searchingFields() {
@@ -56,7 +67,7 @@ public class RecyclerViewActivity extends AppCompatActivity {
         /*
         Метод отвечает за работу с JSON
          */
-        final String url = "http://www.omdbapi.com/?apikey=87d17a18&s=Re:zero";
+        final String url = urlUsers;
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,// GET запрос
                 url, null, new Response.Listener<JSONObject>() {
