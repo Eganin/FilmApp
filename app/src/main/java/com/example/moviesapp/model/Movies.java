@@ -1,7 +1,6 @@
 package com.example.moviesapp.model;
 
 public class Movies {
-    //http://www.omdbapi.com/?apikey=87d17a18&s=Re:zero
     //http://www.omdbapi.com/?apikey=87d17a18&i=tt5607616
     private String title;
     private String posterUrlPath;
