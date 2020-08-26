@@ -5,7 +5,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -24,8 +23,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class RecyclerViewActivity extends AppCompatActivity {
 
+    private static final String notFindImageMovie = "N/A";
     private RecyclerView recyclerView;
     private MovieAdapter movieAdapter;
     private ArrayList<Movies> movies;
@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_recycler_view);
 
         searchingFields();
 
@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         /*
         Метод отвечает за работу с JSON
          */
-        String url = "http://www.omdbapi.com/?apikey=87d17a18&s=Re:zero";
+        final String url = "http://www.omdbapi.com/?apikey=87d17a18&s=Re:zero";
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,// GET запрос
                 url, null, new Response.Listener<JSONObject>() {
@@ -77,7 +77,8 @@ public class MainActivity extends AppCompatActivity {
                         // извлекаем данные по ключу
                         String title = jsonObject.getString("Title");
                         String year = jsonObject.getString("Year");
-                        String urlPath = jsonObject.getString("Poster");
+                        // получаем ссылку на изображение и проверяем ее валидность
+                        String urlPath = preparingImage(jsonObject.getString("Poster"));
                         String type = jsonObject.getString("Type");
 
                         Movies moviesObject = new Movies();
@@ -90,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
                         movies.add(moviesObject);
                     }
 
-                    movieAdapter = new MovieAdapter(MainActivity.this,
+                    movieAdapter = new MovieAdapter(RecyclerViewActivity.this,
                             movies);
                     recyclerView.setAdapter(movieAdapter);
 
@@ -113,5 +114,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         requestQueue.add(request);// добавляем в очередь запросов
+    }
+
+    private String preparingImage(String imageUrl) {
+        String result;
+        if (imageUrl.equals(notFindImageMovie)) {
+            result = notFindImageMovie;
+            return result;
+        } else {
+            result = imageUrl;
+            return result;
+        }
     }
 }

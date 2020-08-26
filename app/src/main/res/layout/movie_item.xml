@@ -3,58 +3,40 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="9dp"
-    app:cardCornerRadius="9dp">
+    android:layout_margin="8dp"
+    app:cardCornerRadius="8dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="18dp"
-        android:weightSum="3">
+        android:orientation="vertical"
+        android:padding="16dp">
 
         <ImageView
-            android:id='@+id/mainPosterImageView'
-            android:layout_width="0dp"
+            android:id="@+id/posterImageView"
+            android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:layout_alignParentLeft="true"
-            android:layout_weight="2"
-            android:src="@drawable/re" />
+            android:src="@mipmap/ic_launcher" />
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/titleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:orientation="vertical">
+            android:text="Title"
+            android:textColor="@android:color/black"
+            android:textSize="20sp" />
 
-            <TextView
-                android:id="@+id/titleTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:text="Title"
-                android:textColor="@android:color/black"
-                android:textSize="20sp" />
+        <TextView
+            android:id="@+id/yearTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Year" />
 
-            <TextView
-                android:id="@+id/yearTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:text="unknown"
-                android:textColor="@android:color/black"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/typeTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:text="movie"
-                android:textColor="@android:color/black"
-                android:textSize="20sp" />
-        </LinearLayout>
-
+        <TextView
+            android:id="@+id/typeTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="imdbId" />
 
     </LinearLayout>
 

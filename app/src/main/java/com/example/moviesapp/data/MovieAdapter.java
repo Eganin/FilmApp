@@ -1,6 +1,7 @@
 package com.example.moviesapp.data;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
+    private static final int defaultPathImage = R.drawable.re;
     private Context context;
     private ArrayList<Movies> movies;
 
@@ -39,11 +41,20 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         }
 
         private void searchFields() {
-            mainPosterImageView = itemView.findViewById(R.id.mainPosterImageView);
+            mainPosterImageView = itemView.findViewById(R.id.posterImageView);
             titleTextView = itemView.findViewById(R.id.titleTextView);
             yearTextView = itemView.findViewById(R.id.yearTextView);
             typeTextView = itemView.findViewById(R.id.typeTextView);
         }
+    }
+
+    private void loadImagePicasso(String posterUrlPath , MovieViewHolder holder){
+        /*
+        Загружаем изображение с помощью библиотеки Picasso
+        и устанавиваем его в ImageView
+         */
+        Picasso.get().load(posterUrlPath).fit().centerInside()
+                .into(holder.mainPosterImageView);
     }
 
     @NonNull
@@ -71,11 +82,16 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         holder.titleTextView.setText(title);
         holder.yearTextView.setText(year);
         holder.typeTextView.setText(type);
-        /*
-        Загружаем изображение с помощью библиотеки Picasso
-        и устанавиваем его в ImageView
-         */
-        Picasso.get().load(posterUrlPath).fit().centerInside().into(holder.mainPosterImageView);
+        Log.d("image",posterUrlPath);
+        if(posterUrlPath.equals("N/A")){
+            // если изображение отсутсвует устнавливаем изображение по умолчанию
+            holder.mainPosterImageView.setImageResource(defaultPathImage);
+
+        }else{
+            // загружаем изображение
+            loadImagePicasso(posterUrlPath,holder);
+        }
+
 
 
     }
