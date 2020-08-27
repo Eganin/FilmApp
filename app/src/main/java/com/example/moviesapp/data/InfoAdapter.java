@@ -59,6 +59,8 @@ public class InfoAdapter extends RecyclerView.Adapter<InfoAdapter.InfoViewHolder
         holder.rating1TextView.append(arrayList.get(8));
 
         loadImagePicasso(arrayList.get(9), holder);
+
+        arrayList.clear();
     }
 
     @Override
@@ -71,7 +73,6 @@ public class InfoAdapter extends RecyclerView.Adapter<InfoAdapter.InfoViewHolder
         Загружаем изображение с помощью библиотеки Picasso
         и устанавиваем его в ImageView
          */
-        Log.d("Path",posterUrlPath);
         Picasso.get().load(posterUrlPath).fit().centerInside()
                 .into(holder.mainImage);
     }

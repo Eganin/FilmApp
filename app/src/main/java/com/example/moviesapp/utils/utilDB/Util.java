@@ -9,9 +9,6 @@ public class Util implements BaseColumns {
     public static final String TABLE_NAME = "movies";
 
     public static final String KEY_ID = "id";
-    public static final String KEY_TITLE = "title";
-    public static final String KEY_POSTER_URL_PATH = "posterUrlPath";
-    public static final String KEY_YEAR = "year";
-    public static final String KEY_TYPE = "type";
-    public static final String KEY_IMB_ID = "imbID";
+    public static final String KEY_TITLE = "title_search";
+
 }
