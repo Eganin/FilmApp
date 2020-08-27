@@ -1,5 +1,6 @@
 package com.example.moviesapp.utils;
 
+import android.content.Intent;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,6 +41,7 @@ public class JsonMainAdapter {
     private MovieInfoActivity infoActivity;
     private MovieAdapter movieAdapter;
     private RecyclerView recyclerView;
+    public  ArrayList<String> listJsonRes= new ArrayList<String>();
 
     public JsonMainAdapter() {
     }
@@ -163,26 +165,6 @@ public class JsonMainAdapter {
                     String imdbRating = response.getString(infoMovie.imdbRating);
                     String poster = response.getString(JsonSearch.poster);
 
-                    TextView titleTextView  = infoActivity.findViewById(R.id.titleTextView);
-                    TextView yearTextView  = infoActivity.findViewById(R.id.yearTextView);
-                    TextView ratedTextView  = infoActivity.findViewById(R.id.ratedTextView);
-                    TextView runtimeTextView  = infoActivity.findViewById(R.id.runtimeTextView);
-                    TextView releasedTextView  = infoActivity.findViewById(R.id.releasedTextView);
-                    TextView genreTextView  = infoActivity.findViewById(R.id.genreTextView);
-                    TextView actorsTextView  = infoActivity.findViewById(R.id.actorsTextView);
-                    TextView plotTextView  = infoActivity.findViewById(R.id.plotTextView);
-                    TextView rating1TextView  = infoActivity.findViewById(R.id.rating1TextView);
-
-
-                    titleTextView.append(title);
-                    yearTextView.append(year);
-                    ratedTextView.append(rated);
-                    runtimeTextView.append(runtime);
-                    releasedTextView.append(released);
-                    genreTextView.append(genre);
-                    actorsTextView.append(actors);
-                    plotTextView.append(plot);
-                    rating1TextView.append(imdbRating);
 
                     downloadAndSetImage(poster);
 
