@@ -10,6 +10,7 @@ public class JsonFields {
         public static final String year = "Year";
         public static final String poster = "Poster";
         public static final String type = "Type";
+        public static final  String imdbID="imdbID";
 
     }
 
@@ -21,6 +22,6 @@ public class JsonFields {
     }
 
     public static final class infoMovie {
-
+        public static final String title = "Title";
     }
 }

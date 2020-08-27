@@ -1,8 +1,10 @@
-package com.example.moviesapp;
+package com.example.moviesapp.activites;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.moviesapp.R;
 
 public class MovieInfoActivity extends AppCompatActivity {
 

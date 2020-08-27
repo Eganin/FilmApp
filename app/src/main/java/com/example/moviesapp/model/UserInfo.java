@@ -1,5 +1,7 @@
 package com.example.moviesapp.model;
 
+import java.util.ArrayList;
+
 public class UserInfo {
     private String nameSearch;
 
@@ -10,6 +12,7 @@ public class UserInfo {
     public UserInfo(String nameSearch) {
         this.nameSearch = nameSearch;
     }
+
 
     public String getNameSearch() {
         return nameSearch;

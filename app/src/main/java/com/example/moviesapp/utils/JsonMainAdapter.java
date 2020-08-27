@@ -11,8 +11,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.moviesapp.activites.MovieInfoActivity;
 import com.example.moviesapp.activites.RecyclerViewActivity;
 import com.example.moviesapp.data.MovieAdapter;
+import com.example.moviesapp.model.MovieInfo;
 import com.example.moviesapp.model.Movies;
 
 import org.json.JSONArray;
@@ -20,16 +22,22 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.example.moviesapp.utils.JsonFields.JsonSearch;
+import com.example.moviesapp.utils.JsonFields.infoMovie;
 
 
 public class JsonMainAdapter {
     private String urlUsers;
+    private String urlInfoMovie;
+    private String id;
     private String mode;
     private ArrayList<Movies> movies;
     private RequestQueue requestQueue;// объект для работы с JSON
     private RecyclerViewActivity activity;
+    private MovieInfoActivity infoActivity;
     private MovieAdapter movieAdapter;
     private RecyclerView recyclerView;
 
@@ -44,6 +52,12 @@ public class JsonMainAdapter {
         this.activity = activty;
         requestQueue = Volley.newRequestQueue(activty);
         this.recyclerView = recyclerView;
+    }
+
+    public JsonMainAdapter(String urlInfoMovie,String id,String apiKey){
+        this.id=id;
+        this.urlInfoMovie = String.format(urlInfoMovie,id,apiKey);
+
     }
 
 
@@ -64,7 +78,6 @@ public class JsonMainAdapter {
                 try {
                     // получаем JSON array
                     JSONArray jsonArray = response.getJSONArray(JsonSearch.JsonArrayName);
-
                     for (int i = 0; i < jsonArray.length(); i++) {
                         // получаем по индексу jsonobject
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
@@ -75,12 +88,16 @@ public class JsonMainAdapter {
                         // получаем ссылку на изображение и проверяем ее валидность
                         String urlPath = preparingImage(jsonObject.getString(JsonSearch.poster));
                         String type = jsonObject.getString(JsonSearch.type);
+                        // ищем id для того чтобы потом найти доп.информацию
+                        String imdbID = jsonObject.getString(JsonSearch.imdbID);
+
                         Movies moviesObject = new Movies();
 
                         moviesObject.setTitle(title);
                         moviesObject.setYear(year);
                         moviesObject.setPosterUrlPath(urlPath);
                         moviesObject.setType(type);
+                        moviesObject.setImbID(imdbID);
 
                         movies.add(moviesObject);
                     }
@@ -110,6 +127,7 @@ public class JsonMainAdapter {
         requestQueue.add(request);// добавляем в очередь запросов
     }
 
+
     private String preparingImage(String imageUrl) {
         String result;
         if (imageUrl.equals(JsonSearch.notFindImageMovie)) {
@@ -121,8 +139,45 @@ public class JsonMainAdapter {
         }
     }
 
-    public String[] moreInfoMovie() {
+    public void moreInfoMovie() {
+        Log.d("newInfo",urlInfoMovie);
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,// GET запрос
+                urlInfoMovie, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                /*
+                парсинг JSON
+                 */
 
+                try {
+                    MovieInfo movieInfo = new MovieInfo();
+                    // получаем JSON array
+                    Log.d("newInfo",urlInfoMovie);
+                    Log.d("newInfo",response.toString());
+
+                    /*movieAdapter = new MovieAdapter(activity,
+                            movies);
+                    recyclerView.setAdapter(movieAdapter);*/
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                /*
+                Метод отвечающий за обработку ошибок
+                 */
+                Toast.makeText(infoActivity,
+                        "Произошла ошибка попробуйте еще", Toast.LENGTH_LONG);
+                error.printStackTrace();
+
+
+            }
+        });
+        //requestQueue.add(request);// добавляем в очередь запросов
     }
 
 

@@ -6,16 +6,26 @@ public class Movies {
     private String posterUrlPath;
     private String year;
     private String type;
+    private String imbID;
 
     public Movies() {
 
     }
 
-    public Movies(String title, String posterUrlPath, String year, String type) {
+    public String getImbID() {
+        return imbID;
+    }
+
+    public void setImbID(String imbID) {
+        this.imbID = imbID;
+    }
+
+    public Movies(String title, String posterUrlPath, String year, String type, String imbID) {
         this.title = title;
         this.posterUrlPath = posterUrlPath;
         this.year = year;
         this.type = type;
+        this.imbID=imbID;
     }
 
     public String getYear() {

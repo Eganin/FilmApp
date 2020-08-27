@@ -1,6 +1,7 @@
 package com.example.moviesapp.data;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,43 +13,76 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.moviesapp.R;
+import com.example.moviesapp.activites.MovieInfoActivity;
 import com.example.moviesapp.model.Movies;
+import com.example.moviesapp.utils.JsonMainAdapter;
 import com.squareup.picasso.Picasso;
+import  com.example.moviesapp.utils.JsonFields.Urls;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
     private static final int defaultPathImage = R.drawable.ic_launcher_foreground;
     private Context context;
     private ArrayList<Movies> movies;
+    public static HashSet<String> imbMainIdArray = new HashSet<>();
 
     public MovieAdapter(Context context, ArrayList<Movies> movies) {
         this.context = context;
         this.movies = movies;
     }
 
-    public class MovieViewHolder extends RecyclerView.ViewHolder {
+    public MovieAdapter() {
+    }
+
+    public class MovieViewHolder extends RecyclerView.ViewHolder
+            implements View.OnClickListener{
         // содержимое CardView
         ImageView mainPosterImageView;
         TextView titleTextView;
         TextView yearTextView;
         TextView typeTextView;
+        TextView imbIdTextView;
 
         public MovieViewHolder(@NonNull View itemView) {
             super(itemView);
-
+            itemView.setOnClickListener(this);// установить обработчик на CardView
             searchFields();
         }
+
 
         private void searchFields() {
             mainPosterImageView = itemView.findViewById(R.id.posterImageView);
             titleTextView = itemView.findViewById(R.id.titleTextView);
             yearTextView = itemView.findViewById(R.id.yearTextView);
             typeTextView = itemView.findViewById(R.id.typeTextView);
+            imbIdTextView = itemView.findViewById(R.id.imbIdTextView);
+        }
+
+
+        @Override
+        public void onClick(View view) {
+            int counter=-1;
+            int position = getAdapterPosition();// получаем позицию CardView
+            Intent intent = new Intent(context, MovieInfoActivity.class);
+            //context.startActivity(intent);
+            HashSet<String> setId = getImbMainId();
+            for(String element : setId){
+                counter++;
+                if(counter==position){
+                    Log.d("newInfo",Urls.infoMovieUrl+" "+element);
+                    JsonMainAdapter jsonMainAdapter = new JsonMainAdapter(Urls.infoMovieUrl
+                            ,element,Urls.API_KEY);
+                    jsonMainAdapter.moreInfoMovie();
+                }
+            }
+
+
         }
     }
 
-    private void loadImagePicasso(String posterUrlPath , MovieViewHolder holder){
+    private void loadImagePicasso(String posterUrlPath, MovieViewHolder holder) {
         /*
         Загружаем изображение с помощью библиотеки Picasso
         и устанавиваем его в ImageView
@@ -75,24 +109,28 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         /*
         Метод отвечает за заполнение CardView
          */
+
         Movies currentMovieElement = movies.get(position);
 
         String title = currentMovieElement.getTitle();
         String year = currentMovieElement.getYear();
         String posterUrlPath = currentMovieElement.getPosterUrlPath();
         String type = currentMovieElement.getType();
+        String imbId = currentMovieElement.getImbID();
+        imbMainIdArray.add(imbId);
 
         holder.titleTextView.setText(title);
         holder.yearTextView.setText(year);
         holder.typeTextView.setText(type);
-        Log.d("image",posterUrlPath);
-        if(posterUrlPath.equals("N/A")){
+        holder.imbIdTextView.setText(imbId);
+        Log.d("image", posterUrlPath);
+        if (posterUrlPath.equals("N/A")) {
             // если изображение отсутсвует устнавливаем изображение по умолчанию
             holder.mainPosterImageView.setImageResource(defaultPathImage);
 
-        }else{
+        } else {
             // загружаем изображение
-            loadImagePicasso(posterUrlPath,holder);
+            loadImagePicasso(posterUrlPath, holder);
         }
 
     }
@@ -102,5 +140,11 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         return movies.size();
     }
 
+    public static HashSet<String> getImbMainId() {
+        return imbMainIdArray;
+    }
 
+    public static void cleanImbMainId(){
+        imbMainIdArray.clear();
+    }
 }
