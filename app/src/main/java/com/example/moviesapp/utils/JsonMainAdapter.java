@@ -14,6 +14,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.moviesapp.R;
 import com.example.moviesapp.activites.MovieInfoActivity;
 import com.example.moviesapp.activites.RecyclerViewActivity;
+import com.example.moviesapp.data.InfoAdapter;
 import com.example.moviesapp.data.MovieAdapter;
 import com.example.moviesapp.model.Movies;
 
@@ -61,9 +62,11 @@ public class JsonMainAdapter {
         this.recyclerView = recyclerView;
     }
 
-    public JsonMainAdapter(String urlInfoMovie, String id, String apiKey, MovieInfoActivity activity) {
+    public JsonMainAdapter(String urlInfoMovie, String id, String apiKey,
+                           MovieInfoActivity activity,RecyclerView recyclerView) {
         this.id = id;
         this.urlInfoMovie = String.format(urlInfoMovie, id, apiKey);
+        this.recyclerView=recyclerView;
         requestQueue = Volley.newRequestQueue(activity);
 
     }
@@ -170,7 +173,11 @@ public class JsonMainAdapter {
                     listJsonRes.add(response.getString(infoMovie.imdbRating));
                     listJsonRes.add(response.getString(JsonSearch.poster));
 
-                    //downloadAndSetImage(poster);
+                    ArrayList<ArrayList<String>> resultList = new ArrayList<>();
+                    resultList.add(listJsonRes);
+                    InfoAdapter infoAdapter = new InfoAdapter(infoActivity,
+                            resultList);
+                    recyclerView.setAdapter(infoAdapter);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
