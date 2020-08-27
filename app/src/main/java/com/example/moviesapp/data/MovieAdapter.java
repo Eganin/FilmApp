@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.moviesapp.R;
 import com.example.moviesapp.activites.MovieInfoActivity;
 import com.example.moviesapp.model.Movies;
+import com.example.moviesapp.utils.JsonFields;
 import com.squareup.picasso.Picasso;
 import com.example.moviesapp.utils.JsonFields.Urls;
 
@@ -22,8 +23,9 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 
+import static com.example.moviesapp.utils.JsonFields.JsonSearch.*;
+
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
-    private static final int defaultPathImage = R.drawable.ic_launcher_foreground;
     private Context context;
     private ArrayList<Movies> movies;
     public static LinkedHashSet<String> imbMainIdArray = new LinkedHashSet<>();
@@ -127,7 +129,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         holder.typeTextView.setText(type);
         holder.imbIdTextView.setText(imbId);
         Log.d("image", posterUrlPath);
-        if (posterUrlPath.equals("N/A")) {
+        if (posterUrlPath.equals(notFindImageMovie)) {
             // если изображение отсутсвует устнавливаем изображение по умолчанию
             holder.mainPosterImageView.setImageResource(defaultPathImage);
 

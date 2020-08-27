@@ -1,10 +1,13 @@
 package com.example.moviesapp.utils;
 
+import com.example.moviesapp.R;
+
 public class JsonFields {
 
     public static final class JsonSearch {
         public static final String JsonArrayName = "Search";
         public static final String notFindImageMovie = "N/A";
+        public static final int defaultPathImage = R.drawable.ic_launcher_foreground;
 
         public static final String title = "Title";
         public static final String year = "Year";

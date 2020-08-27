@@ -109,7 +109,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
-    public void deleteCar(UserInfo userInfo) {
+    public void deleteUserInfo(UserInfo userInfo) {
         /*
         Удаление данных из БД
          */
@@ -121,7 +121,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
     }
 
-    public int updateCar(UserInfo userInfo) {// возвращает кол-во отредактрованных записей
+    public void deleteAllUserInfo(){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.rawQuery(String.format("DELETE FROM %s",Util.TABLE_NAME),null);
+    }
+
+    public int updateUserInfo(UserInfo userInfo) {// возвращает кол-во отредактрованных записей
         /*
         Всатвка данных в БД
          */

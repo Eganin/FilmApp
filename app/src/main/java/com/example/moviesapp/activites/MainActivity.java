@@ -10,7 +10,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.moviesapp.R;
-import com.example.moviesapp.SearchHistoryActivity;
 import com.example.moviesapp.data.DB.DatabaseHandler;
 import com.example.moviesapp.model.UserInfo;
 

@@ -21,6 +21,9 @@ import com.example.moviesapp.utils.JsonFields.Urls;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 
+import static com.example.moviesapp.utils.JsonFields.JsonSearch.defaultPathImage;
+import static com.example.moviesapp.utils.JsonFields.JsonSearch.notFindImageMovie;
+
 public class InfoAdapter extends RecyclerView.Adapter<InfoAdapter.InfoViewHolder> {
 
     private Context context;
@@ -73,8 +76,13 @@ public class InfoAdapter extends RecyclerView.Adapter<InfoAdapter.InfoViewHolder
         Загружаем изображение с помощью библиотеки Picasso
         и устанавиваем его в ImageView
          */
-        Picasso.get().load(posterUrlPath).fit().centerInside()
-                .into(holder.mainImage);
+        if(posterUrlPath.equals(notFindImageMovie)){
+            holder.mainImage.setImageResource(defaultPathImage);
+        }else{
+            Picasso.get().load(posterUrlPath).fit().centerInside()
+                    .into(holder.mainImage);
+        }
+
     }
 
     public class InfoViewHolder extends RecyclerView.ViewHolder
