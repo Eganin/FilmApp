@@ -49,7 +49,15 @@ public class RecyclerViewActivity extends AppCompatActivity {
     }
 
     public void newInfoMovie(View view){
+        JsonMainAdapter jsonMainAdapter = new JsonMainAdapter();
+        String[] arrayInfoMovie = jsonMainAdapter.moreInfoMovie();
+        activityNext();
 
+    }
+
+    private void activityNext(){
+        Intent recyclerViewIntent = new Intent(RecyclerViewActivity.this,
+                RecyclerViewActivity.class);
     }
 
     private void searchingFields() {

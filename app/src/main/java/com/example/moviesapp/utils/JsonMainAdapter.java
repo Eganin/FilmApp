@@ -121,7 +121,7 @@ public class JsonMainAdapter {
         }
     }
 
-    public void moreInfoMovie() {
+    public String[] moreInfoMovie() {
 
     }
 
