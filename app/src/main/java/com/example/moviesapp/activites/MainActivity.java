@@ -10,6 +10,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.moviesapp.R;
+import com.example.moviesapp.SearchHistoryActivity;
+import com.example.moviesapp.data.DB.DatabaseHandler;
 import com.example.moviesapp.model.UserInfo;
 
 public class MainActivity extends AppCompatActivity {
@@ -19,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private Button sourceButton;
     private String nameSearch;
     private UserInfo userInfo;
+    private DatabaseHandler databaseHandler ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +61,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void listenerClickedSourceButton() {
+        sourceButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this,
+                        SearchHistoryActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -66,6 +77,8 @@ public class MainActivity extends AppCompatActivity {
         if (nameSearch.length() > 0) {
             // еслм пользователь ввел что-то
             userInfo = new UserInfo(nameSearch);// создаем класс с информацией
+            databaseHandler = new DatabaseHandler(getApplicationContext());
+            databaseHandler.addUserInfo(userInfo);
             return true;
         } else {
             return false;
