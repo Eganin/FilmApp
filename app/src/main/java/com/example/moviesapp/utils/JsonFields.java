@@ -23,5 +23,13 @@ public class JsonFields {
 
     public static final class infoMovie {
         public static final String title = "Title";
+        public static final String year = "Year";
+        public static final String rated = "Rated";
+        public static final String runtime ="Runtime";
+        public static final String released ="Released";
+        public static final String genre ="Genre";
+        public static final String actors ="Actors";
+        public static final String plot = "Plot";
+        public static final String imdbRating = "imdbRating";
     }
 }

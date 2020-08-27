@@ -6,24 +6,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.example.moviesapp.R;
 import com.example.moviesapp.data.MovieAdapter;
-import com.example.moviesapp.model.MovieInfo;
 import com.example.moviesapp.model.Movies;
-import com.example.moviesapp.model.UserInfo;
 import com.example.moviesapp.utils.JsonMainAdapter;
 import com.example.moviesapp.utils.JsonFields.Urls;
 
 
 import java.util.ArrayList;
-import java.util.Map;
-import java.util.Objects;
 
 public class RecyclerViewActivity extends AppCompatActivity {
     private static final String keySearch = "nameSearch";

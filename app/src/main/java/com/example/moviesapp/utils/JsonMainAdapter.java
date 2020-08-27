@@ -1,6 +1,7 @@
 package com.example.moviesapp.utils;
 
-import android.util.Log;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,10 +12,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.moviesapp.R;
 import com.example.moviesapp.activites.MovieInfoActivity;
 import com.example.moviesapp.activites.RecyclerViewActivity;
 import com.example.moviesapp.data.MovieAdapter;
-import com.example.moviesapp.model.MovieInfo;
 import com.example.moviesapp.model.Movies;
 
 import org.json.JSONArray;
@@ -22,11 +23,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import com.example.moviesapp.utils.JsonFields.JsonSearch;
 import com.example.moviesapp.utils.JsonFields.infoMovie;
+import com.squareup.picasso.Picasso;
 
 
 public class JsonMainAdapter {
@@ -54,9 +54,10 @@ public class JsonMainAdapter {
         this.recyclerView = recyclerView;
     }
 
-    public JsonMainAdapter(String urlInfoMovie,String id,String apiKey){
-        this.id=id;
-        this.urlInfoMovie = String.format(urlInfoMovie,id,apiKey);
+    public JsonMainAdapter(String urlInfoMovie, String id, String apiKey, MovieInfoActivity activity) {
+        this.id = id;
+        this.urlInfoMovie = String.format(urlInfoMovie, id, apiKey);
+        requestQueue = Volley.newRequestQueue(activity);
 
     }
 
@@ -100,6 +101,7 @@ public class JsonMainAdapter {
                         moviesObject.setImbID(imdbID);
 
                         movies.add(moviesObject);
+
                     }
 
                     movieAdapter = new MovieAdapter(activity,
@@ -140,7 +142,6 @@ public class JsonMainAdapter {
     }
 
     public void moreInfoMovie() {
-        Log.d("newInfo",urlInfoMovie);
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,// GET запрос
                 urlInfoMovie, null, new Response.Listener<JSONObject>() {
             @Override
@@ -150,16 +151,42 @@ public class JsonMainAdapter {
                  */
 
                 try {
-                    MovieInfo movieInfo = new MovieInfo();
-                    // получаем JSON array
-                    Log.d("newInfo",urlInfoMovie);
-                    Log.d("newInfo",response.toString());
 
-                    /*movieAdapter = new MovieAdapter(activity,
-                            movies);
-                    recyclerView.setAdapter(movieAdapter);*/
+                    String title = response.getString(infoMovie.title);
+                    String  year = response.getString(infoMovie.year);
+                    String rated = response.getString(infoMovie.rated);
+                    String runtime = response.getString(infoMovie.runtime);
+                    String released = response.getString(infoMovie.released);
+                    String genre = response.getString(infoMovie.genre);
+                    String actors = response.getString(infoMovie.actors);
+                    String plot = response.getString(infoMovie.plot);
+                    String imdbRating = response.getString(infoMovie.imdbRating);
+                    String poster = response.getString(JsonSearch.poster);
 
-                } catch (Exception e) {
+                    TextView titleTextView  = infoActivity.findViewById(R.id.titleTextView);
+                    TextView yearTextView  = infoActivity.findViewById(R.id.yearTextView);
+                    TextView ratedTextView  = infoActivity.findViewById(R.id.ratedTextView);
+                    TextView runtimeTextView  = infoActivity.findViewById(R.id.runtimeTextView);
+                    TextView releasedTextView  = infoActivity.findViewById(R.id.releasedTextView);
+                    TextView genreTextView  = infoActivity.findViewById(R.id.genreTextView);
+                    TextView actorsTextView  = infoActivity.findViewById(R.id.actorsTextView);
+                    TextView plotTextView  = infoActivity.findViewById(R.id.plotTextView);
+                    TextView rating1TextView  = infoActivity.findViewById(R.id.rating1TextView);
+
+
+                    titleTextView.append(title);
+                    yearTextView.append(year);
+                    ratedTextView.append(rated);
+                    runtimeTextView.append(runtime);
+                    releasedTextView.append(released);
+                    genreTextView.append(genre);
+                    actorsTextView.append(actors);
+                    plotTextView.append(plot);
+                    rating1TextView.append(imdbRating);
+
+                    downloadAndSetImage(poster);
+
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
@@ -177,7 +204,12 @@ public class JsonMainAdapter {
 
             }
         });
-        //requestQueue.add(request);// добавляем в очередь запросов
+        requestQueue.add(request);// добавляем в очередь запросов
+    }
+
+    private void downloadAndSetImage(String poster){
+        Picasso.get().load(poster).fit().centerInside()
+                .into((ImageView) infoActivity.findViewById(R.id.mainImage));
     }
 
 

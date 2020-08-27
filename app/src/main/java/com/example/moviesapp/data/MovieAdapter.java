@@ -15,18 +15,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.moviesapp.R;
 import com.example.moviesapp.activites.MovieInfoActivity;
 import com.example.moviesapp.model.Movies;
-import com.example.moviesapp.utils.JsonMainAdapter;
 import com.squareup.picasso.Picasso;
-import  com.example.moviesapp.utils.JsonFields.Urls;
+import com.example.moviesapp.utils.JsonFields.Urls;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
     private static final int defaultPathImage = R.drawable.ic_launcher_foreground;
     private Context context;
     private ArrayList<Movies> movies;
-    public static HashSet<String> imbMainIdArray = new HashSet<>();
+    public static LinkedHashSet<String> imbMainIdArray = new LinkedHashSet<>();
 
     public MovieAdapter(Context context, ArrayList<Movies> movies) {
         this.context = context;
@@ -37,7 +37,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     }
 
     public class MovieViewHolder extends RecyclerView.ViewHolder
-            implements View.OnClickListener{
+            implements View.OnClickListener {
         // содержимое CardView
         ImageView mainPosterImageView;
         TextView titleTextView;
@@ -63,23 +63,26 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
         @Override
         public void onClick(View view) {
-            int counter=-1;
+            int counter = -1;
             int position = getAdapterPosition();// получаем позицию CardView
             Intent intent = new Intent(context, MovieInfoActivity.class);
-            //context.startActivity(intent);
-            HashSet<String> setId = getImbMainId();
-            for(String element : setId){
+            LinkedHashSet<String> setId = getImbMainId();
+            for (String element : setId) {
                 counter++;
-                if(counter==position){
-                    Log.d("newInfo",Urls.infoMovieUrl+" "+element);
-                    JsonMainAdapter jsonMainAdapter = new JsonMainAdapter(Urls.infoMovieUrl
-                            ,element,Urls.API_KEY);
-                    jsonMainAdapter.moreInfoMovie();
+                if (counter == position) {
+                    pullExtraInfoOtherActivity(intent, element);
                 }
             }
 
 
         }
+    }
+
+    private void pullExtraInfoOtherActivity(Intent intent, String element) {
+        intent.putExtra("json_url", Urls.infoMovieUrl);
+        intent.putExtra("json_id", element);
+        intent.putExtra("json_api_key", Urls.API_KEY);
+        context.startActivity(intent);
     }
 
     private void loadImagePicasso(String posterUrlPath, MovieViewHolder holder) {
@@ -140,11 +143,11 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         return movies.size();
     }
 
-    public static HashSet<String> getImbMainId() {
+    public static LinkedHashSet<String> getImbMainId() {
         return imbMainIdArray;
     }
 
-    public static void cleanImbMainId(){
+    public static void cleanImbMainId() {
         imbMainIdArray.clear();
     }
 }
