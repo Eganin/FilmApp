@@ -1,4 +1,4 @@
-package com.example.moviesapp.activites;
+package com.example.moviesapp.model;
 
 public class UserInfo {
     private String nameSearch;

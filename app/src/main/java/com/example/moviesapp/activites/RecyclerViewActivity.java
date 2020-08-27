@@ -13,7 +13,9 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.example.moviesapp.R;
 import com.example.moviesapp.model.Movies;
+import com.example.moviesapp.utils.JsonFields;
 import com.example.moviesapp.utils.JsonMainAdapter;
+import com.example.moviesapp.utils.JsonFields.Urls;
 
 
 import java.util.ArrayList;
@@ -42,7 +44,7 @@ public class RecyclerViewActivity extends AppCompatActivity {
         Intent receivedOrderIntent = getIntent();
         // получение отправленных данных
         String data = receivedOrderIntent.getStringExtra(keySend);
-        urlUsers = String.format("http://www.omdbapi.com/?apikey=87d17a18&s=%s", data);
+        urlUsers = String.format(Urls.searchUrl, Urls.API_KEY,data);
         return data;
     }
 
