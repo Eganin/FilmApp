@@ -32,29 +32,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void searchingFields() {
+        // поиск полей по id
         sourceButton = findViewById(R.id.sourceButton);
         searchButton = findViewById(R.id.searchButton);
         searchEditText = findViewById(R.id.searchEditText);
     }
 
-    private boolean getInfoSearchInfo() {
-        nameSearch = String.valueOf(searchEditText.getText());
-        if (nameSearch.length() > 0) {
-            userInfo = new UserInfo(nameSearch);
-            return true;
-        } else {
-            return false;
-        }
-
-    }
-
-    private void activityPutValues(Intent intent, UserInfo userInfo) {
-        intent.putExtra("nameSearch", userInfo.getNameSearch());
-
-        startActivity(intent);
-    }
-
     private void listenerClickedSearchButton() {
+        // обоаботчик поисковой кнопки
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -62,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
                 if (fieldEditText) {
                     Intent recyclerViewIntent = new Intent(MainActivity.this,
                             RecyclerViewActivity.class);
+                    // отправлем информацию в RecyclerActivity
                     activityPutValues(recyclerViewIntent, userInfo);
                 } else {
                     Toast.makeText(MainActivity.this,nullSearchEditText,
@@ -75,6 +61,25 @@ public class MainActivity extends AppCompatActivity {
     private void listenerClickedSourceButton() {
 
     }
+
+    private boolean getInfoSearchInfo() {
+        nameSearch = String.valueOf(searchEditText.getText());
+        if (nameSearch.length() > 0) {
+            // еслм пользователь ввел что-то
+            userInfo = new UserInfo(nameSearch);// создаем класс с информацией
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    private void activityPutValues(Intent intent, UserInfo userInfo) {
+        intent.putExtra("nameSearch", userInfo.getNameSearch());
+
+        startActivity(intent);
+    }
+
 
 
 }

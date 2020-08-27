@@ -22,6 +22,7 @@
             android:id="@+id/titleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:text="Title"
             android:textColor="@android:color/black"
             android:textSize="20sp" />
@@ -30,13 +31,22 @@
             android:id="@+id/yearTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:text="Year" />
 
         <TextView
             android:id="@+id/typeTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:text="imdbId" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Узнать подробнее"
+            android:textStyle="bold" />
 
     </LinearLayout>
 

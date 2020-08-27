@@ -28,7 +28,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     }
 
     public class MovieViewHolder extends RecyclerView.ViewHolder {
-
+        // содержимое CardView
         ImageView mainPosterImageView;
         TextView titleTextView;
         TextView yearTextView;
@@ -72,6 +72,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     @Override
     public void onBindViewHolder(@NonNull MovieViewHolder holder, int position) {
+        /*
+        Метод отвечает за заполнение CardView
+         */
         Movies currentMovieElement = movies.get(position);
 
         String title = currentMovieElement.getTitle();
