@@ -1,8 +1,6 @@
 package com.example.moviesapp.utils;
 
-import android.content.Intent;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,6 +21,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 import com.example.moviesapp.utils.JsonFields.JsonSearch;
@@ -41,7 +46,7 @@ public class JsonMainAdapter {
     private MovieInfoActivity infoActivity;
     private MovieAdapter movieAdapter;
     private RecyclerView recyclerView;
-    public  ArrayList<String> listJsonRes= new ArrayList<String>();
+    public static ArrayList<String> listJsonRes= new ArrayList<String>();
 
     public JsonMainAdapter() {
     }
@@ -154,19 +159,18 @@ public class JsonMainAdapter {
 
                 try {
 
-                    String title = response.getString(infoMovie.title);
-                    String  year = response.getString(infoMovie.year);
-                    String rated = response.getString(infoMovie.rated);
-                    String runtime = response.getString(infoMovie.runtime);
-                    String released = response.getString(infoMovie.released);
-                    String genre = response.getString(infoMovie.genre);
-                    String actors = response.getString(infoMovie.actors);
-                    String plot = response.getString(infoMovie.plot);
-                    String imdbRating = response.getString(infoMovie.imdbRating);
-                    String poster = response.getString(JsonSearch.poster);
+                    listJsonRes.add(response.getString(infoMovie.title));
+                    listJsonRes.add(response.getString(infoMovie.year));
+                    listJsonRes.add(response.getString(infoMovie.rated));
+                    listJsonRes.add(response.getString(infoMovie.runtime));
+                    listJsonRes.add(response.getString(infoMovie.released));
+                    listJsonRes.add(response.getString(infoMovie.genre));
+                    listJsonRes.add(response.getString(infoMovie.actors));
+                    listJsonRes.add(response.getString(infoMovie.plot));
+                    listJsonRes.add(response.getString(infoMovie.imdbRating));
+                    listJsonRes.add(response.getString(JsonSearch.poster));
 
-
-                    downloadAndSetImage(poster);
+                    //downloadAndSetImage(poster);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -187,6 +191,11 @@ public class JsonMainAdapter {
             }
         });
         requestQueue.add(request);// добавляем в очередь запросов
+    }
+
+
+    public static ArrayList<String> getListJsonRes(){
+        return listJsonRes;
     }
 
     private void downloadAndSetImage(String poster){
