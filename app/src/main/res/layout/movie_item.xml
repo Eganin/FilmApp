@@ -46,7 +46,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="Узнать подробнее"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:onClick="newInfoMovie"/>
 
     </LinearLayout>
 

@@ -1,5 +1,6 @@
 package com.example.moviesapp.utils;
 
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -74,7 +75,6 @@ public class JsonMainAdapter {
                         // получаем ссылку на изображение и проверяем ее валидность
                         String urlPath = preparingImage(jsonObject.getString(JsonSearch.poster));
                         String type = jsonObject.getString(JsonSearch.type);
-
                         Movies moviesObject = new Movies();
 
                         moviesObject.setTitle(title);

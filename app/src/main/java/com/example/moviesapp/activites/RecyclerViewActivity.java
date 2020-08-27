@@ -6,6 +6,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.example.moviesapp.R;
@@ -41,6 +44,10 @@ public class RecyclerViewActivity extends AppCompatActivity {
         String data = receivedOrderIntent.getStringExtra(keySend);
         urlUsers = String.format("http://www.omdbapi.com/?apikey=87d17a18&s=%s", data);
         return data;
+    }
+
+    public void newInfoMovie(View view){
+
     }
 
     private void searchingFields() {
