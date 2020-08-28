@@ -15,12 +15,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.moviesapp.R;
 import com.example.moviesapp.activites.MovieInfoActivity;
 import com.example.moviesapp.model.Movies;
-import com.example.moviesapp.utils.JsonFields;
 import com.squareup.picasso.Picasso;
 import com.example.moviesapp.utils.JsonFields.Urls;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 
 import static com.example.moviesapp.utils.JsonFields.JsonSearch.*;
@@ -28,18 +26,15 @@ import static com.example.moviesapp.utils.JsonFields.JsonSearch.*;
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
     private Context context;
     private ArrayList<Movies> movies;
-    public static LinkedHashSet<String> imbMainIdArray = new LinkedHashSet<>();
+    public static LinkedHashSet<String> imbMainIdArray = new LinkedHashSet<String>();
 
     public MovieAdapter(Context context, ArrayList<Movies> movies) {
         this.context = context;
         this.movies = movies;
     }
 
-    public MovieAdapter() {
-    }
-
     public class MovieViewHolder extends RecyclerView.ViewHolder
-            implements View.OnClickListener {
+            implements View.OnClickListener {// реализуем интерфейс чтобы реализовать метод OnClick
         // содержимое CardView
         ImageView mainPosterImageView;
         TextView titleTextView;
@@ -65,6 +60,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
         @Override
         public void onClick(View view) {
+            // метод срабатывает если мы нажимаем на CardView
             int counter = -1;
             int position = getAdapterPosition();// получаем позицию CardView
             Intent intent = new Intent(context, MovieInfoActivity.class);
@@ -122,6 +118,11 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         String posterUrlPath = currentMovieElement.getPosterUrlPath();
         String type = currentMovieElement.getType();
         String imbId = currentMovieElement.getImbID();
+        /*
+        добавляем id в LinkedHashSet для того чтобы потом
+        при нажатии на CardView взять id по position
+        и испольщовать для дальнейшего парсинга Json
+         */
         imbMainIdArray.add(imbId);
 
         holder.titleTextView.setText(title);

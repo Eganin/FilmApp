@@ -5,6 +5,8 @@ import com.example.moviesapp.R;
 public class JsonFields {
 
     public static final class JsonSearch {
+        public static final String keySearch = "nameSearch";;
+        public static final String nullSearchEditText = "Введите название фильма";
         public static final String JsonArrayName = "Search";
         public static final String notFindImageMovie = "N/A";
         public static final int defaultPathImage = R.drawable.ic_launcher_foreground;

@@ -24,6 +24,7 @@ import org.json.JSONObject;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import com.example.moviesapp.utils.JsonFields.JsonSearch;
 import com.example.moviesapp.utils.JsonFields.infoMovie;
@@ -43,11 +44,9 @@ public class JsonMainAdapter {
     private RecyclerView recyclerView;
     public static ArrayList<String> listJsonRes= new ArrayList<String>();
 
-    public JsonMainAdapter() {
-    }
-
     public JsonMainAdapter(String urlUsers, ArrayList<Movies> movies, RecyclerViewActivity activty,
                            RecyclerView recyclerView, String mode) {
+        // constructor  для общего поиска Json
         this.urlUsers = urlUsers;
         this.mode = mode;
         this.movies = movies;
@@ -58,6 +57,7 @@ public class JsonMainAdapter {
 
     public JsonMainAdapter(String urlInfoMovie, String id, String apiKey,
                            MovieInfoActivity activity,RecyclerView recyclerView) {
+        // constructor для поиска информации по фильму
         this.id = id;
         this.urlInfoMovie = String.format(urlInfoMovie, id, apiKey);
         this.recyclerView=recyclerView;
@@ -70,16 +70,13 @@ public class JsonMainAdapter {
         /*
         Метод отвечает за работу с JSON
          */
-        final String url = urlUsers;
-
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,// GET запрос
-                url, null, new Response.Listener<JSONObject>() {
+                urlUsers, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 /*
                 парсинг JSON
                  */
-
                 try {
                     // получаем JSON array
                     JSONArray jsonArray = response.getJSONArray(JsonSearch.JsonArrayName);
@@ -137,6 +134,7 @@ public class JsonMainAdapter {
     private String preparingImage(String imageUrl) {
         String result;
         if (imageUrl.equals(JsonSearch.notFindImageMovie)) {
+            // устанавливаем изображение по умолчанию
             result = JsonSearch.notFindImageMovie;
             return result;
         } else {
@@ -153,19 +151,17 @@ public class JsonMainAdapter {
                 /*
                 парсинг JSON
                  */
-
                 try {
-
-                    listJsonRes.add(response.getString(infoMovie.title));
-                    listJsonRes.add(response.getString(infoMovie.year));
-                    listJsonRes.add(response.getString(infoMovie.rated));
-                    listJsonRes.add(response.getString(infoMovie.runtime));
-                    listJsonRes.add(response.getString(infoMovie.released));
-                    listJsonRes.add(response.getString(infoMovie.genre));
-                    listJsonRes.add(response.getString(infoMovie.actors));
-                    listJsonRes.add(response.getString(infoMovie.plot));
-                    listJsonRes.add(response.getString(infoMovie.imdbRating));
-                    listJsonRes.add(response.getString(JsonSearch.poster));
+                    String[] array = new String[]{response.getString(infoMovie.title),
+                            response.getString(infoMovie.year),response.getString(infoMovie.rated),
+                            response.getString(infoMovie.runtime),
+                            response.getString(infoMovie.released),
+                            response.getString(infoMovie.genre),
+                            response.getString(infoMovie.actors),
+                            response.getString(infoMovie.plot),
+                            response.getString(infoMovie.imdbRating),
+                            response.getString(JsonSearch.poster)};
+                    listJsonRes.addAll(Arrays.asList(array));
 
                     ArrayList<ArrayList<String>> resultList = new ArrayList<>();
                     resultList.add(listJsonRes);
@@ -219,5 +215,13 @@ public class JsonMainAdapter {
 
     public void setUrlUsers(String urlUsers) {
         this.urlUsers = urlUsers;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

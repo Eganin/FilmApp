@@ -1,8 +1,6 @@
 package com.example.moviesapp.data;
 
 import android.content.Context;
-import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,13 +11,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.moviesapp.R;
-import com.example.moviesapp.activites.MovieInfoActivity;
-import com.example.moviesapp.model.Movies;
 import com.squareup.picasso.Picasso;
-import com.example.moviesapp.utils.JsonFields.Urls;
 
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
 
 import static com.example.moviesapp.utils.JsonFields.JsonSearch.defaultPathImage;
 import static com.example.moviesapp.utils.JsonFields.JsonSearch.notFindImageMovie;
@@ -76,9 +70,9 @@ public class InfoAdapter extends RecyclerView.Adapter<InfoAdapter.InfoViewHolder
         Загружаем изображение с помощью библиотеки Picasso
         и устанавиваем его в ImageView
          */
-        if(posterUrlPath.equals(notFindImageMovie)){
+        if (posterUrlPath.equals(notFindImageMovie)) {
             holder.mainImage.setImageResource(defaultPathImage);
-        }else{
+        } else {
             Picasso.get().load(posterUrlPath).fit().centerInside()
                     .into(holder.mainImage);
         }

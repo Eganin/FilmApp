@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
@@ -76,7 +77,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
             db.insert(Util.TABLE_NAME, null, contentValues);
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.d("dataBase","Такой запрос уже есть в БД");
         } finally {
             db.close();
         }

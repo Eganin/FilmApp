@@ -18,18 +18,19 @@ import com.example.moviesapp.utils.JsonFields.Urls;
 
 import java.util.ArrayList;
 
+import static com.example.moviesapp.utils.JsonFields.JsonSearch.*;
+
 public class RecyclerViewActivity extends AppCompatActivity {
-    private static final String keySearch = "nameSearch";
     private RecyclerView recyclerView;
     private ArrayList<Movies> movies;
     private RequestQueue requestQueue;// объект для работы с JSON
     private String urlUsers;
-    private String urlInfoMovie;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recycler_view);
+        // получаем данные из MainActivity
         String dataName = receivingDataIntentString(keySearch);
         setTitle(dataName);
         searchingFields();
@@ -51,7 +52,7 @@ public class RecyclerViewActivity extends AppCompatActivity {
     private void searchingFields() {
 
         recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setHasFixedSize(true);
+        recyclerView.setHasFixedSize(true);// размер RecyclerView не изменяется динамически
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         movies = new ArrayList<Movies>();
@@ -67,7 +68,7 @@ public class RecyclerViewActivity extends AppCompatActivity {
                 RecyclerViewActivity.this, recyclerView, "main");
 
         MovieAdapter.cleanImbMainId();
-        jsonMainAdapter.searchMovies();
+        jsonMainAdapter.searchMovies();// получаем данные Json
     }
 
 }

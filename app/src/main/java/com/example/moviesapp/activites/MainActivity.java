@@ -13,8 +13,9 @@ import com.example.moviesapp.R;
 import com.example.moviesapp.data.DB.DatabaseHandler;
 import com.example.moviesapp.model.UserInfo;
 
+import static com.example.moviesapp.utils.JsonFields.JsonSearch.*;
+
 public class MainActivity extends AppCompatActivity {
-    private static final String nullSearchEditText = "Введите название фильма";
     private EditText searchEditText;
     private Button searchButton;
     private Button sourceButton;
@@ -44,13 +45,14 @@ public class MainActivity extends AppCompatActivity {
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                boolean fieldEditText = getInfoSearchInfo();
+                boolean fieldEditText = getInfoSearchInfo();// флаг - ввел ли пользователь данные
                 if (fieldEditText) {
                     Intent recyclerViewIntent = new Intent(MainActivity.this,
                             RecyclerViewActivity.class);
                     // отправлем информацию в RecyclerActivity
                     activityPutValues(recyclerViewIntent, userInfo);
                 } else {
+                    // если ничего не введено
                     Toast.makeText(MainActivity.this,nullSearchEditText,
                             Toast.LENGTH_LONG).show();
                 }
@@ -77,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
             // еслм пользователь ввел что-то
             userInfo = new UserInfo(nameSearch);// создаем класс с информацией
             databaseHandler = new DatabaseHandler(getApplicationContext());
-            databaseHandler.addUserInfo(userInfo);
+            databaseHandler.addUserInfo(userInfo);// добавляем поисковый запрос в БД
             return true;
         } else {
             return false;

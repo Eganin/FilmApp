@@ -7,7 +7,6 @@ import android.os.Bundle;
 
 import com.example.moviesapp.R;
 import com.example.moviesapp.data.InfoAdapter;
-import com.example.moviesapp.data.MovieAdapter;
 import com.example.moviesapp.utils.JsonMainAdapter;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -29,6 +28,7 @@ public class MovieInfoActivity extends AppCompatActivity {
     }
 
     private void pullData() {
+        // загружаем данные отправленные из RecyclerViewActivity
         Intent intent = getIntent();
         if (intent != null) {
             String url = intent.getStringExtra("json_url");
