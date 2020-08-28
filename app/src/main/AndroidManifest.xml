@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activites.SettingsActivity"></activity>
+        <activity android:name=".activites.SettingsActivity" />
         <activity android:name=".activites.SearchHistoryActivity" />
         <activity android:name=".activites.MovieInfoActivity" />
         <activity android:name=".activites.RecyclerViewActivity" />

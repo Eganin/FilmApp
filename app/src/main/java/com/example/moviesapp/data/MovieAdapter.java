@@ -28,6 +28,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     private ArrayList<Movies> movies;
     public static LinkedHashSet<String> imbMainIdArray = new LinkedHashSet<String>();
 
+    public MovieAdapter() {
+    }
+
     public MovieAdapter(Context context, ArrayList<Movies> movies) {
         this.context = context;
         this.movies = movies;
@@ -152,5 +155,14 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     public static void cleanImbMainId() {
         imbMainIdArray.clear();
+    }
+
+    public  boolean isNullCardView(){
+        int result = getItemCount();
+        if(result==0){
+            return true;
+        }else{
+            return false;
+        }
     }
 }
