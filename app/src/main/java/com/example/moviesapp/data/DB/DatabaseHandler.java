@@ -77,7 +77,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
             db.insert(Util.TABLE_NAME, null, contentValues);
         } catch (Exception e) {
-            Log.d("dataBase","Такой запрос уже есть в БД");
+            Log.d("dataBase", "Такой запрос уже есть в БД");
         } finally {
             db.close();
         }
@@ -122,10 +122,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void deleteAllUserInfo(){
+    public void deleteAllUserInfo() {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        db.rawQuery(String.format("DELETE FROM %s",Util.TABLE_NAME),null);
+        onUpgrade(db, 1, 1);
     }
 
     public int updateUserInfo(UserInfo userInfo) {// возвращает кол-во отредактрованных записей

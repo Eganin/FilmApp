@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
@@ -25,6 +27,7 @@ public class RecyclerViewActivity extends AppCompatActivity {
     private ArrayList<Movies> movies;
     private RequestQueue requestQueue;// объект для работы с JSON
     private String urlUsers;
+    private static  final int backBut = R.id.action_back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +38,31 @@ public class RecyclerViewActivity extends AppCompatActivity {
         setTitle(dataName);
         searchingFields();
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // создание меню в Activity
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // обработчик нажатий кнопок нп меню
+        int idItem = item.getItemId();
+        switch (idItem) {
+            case backBut:
+                backActivity();
+                return true;
+
+            default:
+                return false;
+        }
+    }
+
+    private void backActivity(){
+        this.finish();
     }
 
     public String receivingDataIntentString(String keySend) {
